@@ -1,0 +1,15 @@
+remote:
+  enabled: true
+
+endpoints:
+  - name: "VPN Tunnel Health"
+    group: "Network"
+    url: "icmp://10.8.0.1"  # vpn gateway address
+    interval: 5s
+    conditions: [" [RESPONSE_TIME] < 150"]
+
+  - name: "HTTPS ipfy.org"
+    group: "Yolwise-Internal"
+    url: "https://api.ipify.org"
+    interval: 30s
+    conditions: ["[STATUS] == 200"]

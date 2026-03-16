@@ -1,0 +1,29 @@
+services:
+  openvpn-client:
+    image: anonymouz/openvpn-client
+    container_name: openvpn-client
+    cap_add:
+      - NET_ADMIN
+    devices:
+      - "/dev/net/tun:/dev/net/tun"
+    volumes:
+      - "./vpn/client.ovpn:/vpn/config.ovpn:ro"
+    restart: always
+    networks:
+      - vpn_net
+    ports:
+      - "8080:8080"  # open port for gatus-vpn-monitor
+
+  gatus-vpn-monitor:
+    image: twinproduction/gatus:latest
+    container_name: gatus-vpn-monitor
+    restart: always
+    network_mode: "service:openvpn-client"
+    depends_on:
+      - openvpn-client
+    volumes:
+      - "./gatus/worker.yaml:/config/config.yaml:ro"
+
+networks:
+  vpn_net:
+    driver: bridge
