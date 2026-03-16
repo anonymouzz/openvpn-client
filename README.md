@@ -5,7 +5,7 @@
 This is an OpenVPN client docker container. It makes routing containers'
 traffic through OpenVPN easy.
 
-## FORK of https://github.com/dperson/openvpn-client
+*Forked from [dperson/openvpn-client](https://github.com/dperson/openvpn-client)*
 
 # What is OpenVPN?
 
